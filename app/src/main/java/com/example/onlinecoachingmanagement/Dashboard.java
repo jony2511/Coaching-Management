@@ -63,7 +63,7 @@ public class Dashboard extends AppCompatActivity {
         }
         //code added here
         navigationView.bringToFront();
-
+         //comment
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
