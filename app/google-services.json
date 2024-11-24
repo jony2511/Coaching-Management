@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "275206286147",
+    "project_id": "coaching-management-a2578",
+    "storage_bucket": "coaching-management-a2578.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:275206286147:android:1576291bd3b34507681df6",
+        "android_client_info": {
+          "package_name": "com.example.onlinecoachingmanagement"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB5_wxoenuwGPHgKUTNXsBE4LFB1VE-djQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
