@@ -127,9 +127,9 @@ public class Dashboard extends AppCompatActivity {
 
             if (item.getItemId() == R.id.home) {
                 replaceFragment(new HomeFragment());
-            } else if (item.getItemId() == R.id.shorts) {
-                replaceFragment(new ShortFragment());
-            } else if (item.getItemId() == R.id.subscriptions) {
+            } else if (item.getItemId() == R.id.calculator) {
+                replaceFragment(new CalculatorFragment());
+            } else if (item.getItemId() == R.id.dictionary) {
                 replaceFragment(new SubsFragment());
             } else if (item.getItemId() == R.id.library) {
                 replaceFragment(new LibraryFragment());
