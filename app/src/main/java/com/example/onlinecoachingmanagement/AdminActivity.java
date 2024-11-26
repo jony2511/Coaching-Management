@@ -14,7 +14,7 @@ import com.google.firebase.database.FirebaseDatabase;
 public class AdminActivity extends AppCompatActivity {
 
     private EditText subjectNameField;
-    private Button addSubjectButton, addQuestionSetButton;
+    private Button addSubjectButton, addQuestionSetButton,setRoutine;
 
     private DatabaseReference databaseReference;
 
@@ -26,6 +26,7 @@ public class AdminActivity extends AppCompatActivity {
         subjectNameField = findViewById(R.id.subjectNameField);
         addSubjectButton = findViewById(R.id.addSubjectButton);
         addQuestionSetButton = findViewById(R.id.addQuestionSetButton);
+        setRoutine=findViewById(R.id.routineId);
 
         databaseReference = FirebaseDatabase.getInstance().getReference("Subjects");
 
@@ -41,6 +42,9 @@ public class AdminActivity extends AppCompatActivity {
 
         addQuestionSetButton.setOnClickListener(view ->
                 startActivity(new Intent(AdminActivity.this, AddQuestionActivity.class))
+        );
+        setRoutine.setOnClickListener(view ->
+                startActivity(new Intent(AdminActivity.this, AdminRoutineActivity.class))
         );
     }
 }

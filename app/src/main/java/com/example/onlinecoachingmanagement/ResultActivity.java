@@ -5,13 +5,17 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -21,6 +25,7 @@ public class ResultActivity extends AppCompatActivity {
     FirebaseAuth mAuth;
     FirebaseUser user;
     private LinearLayout questionContainer;
+    String nameOfUser;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,31 +44,12 @@ public class ResultActivity extends AppCompatActivity {
         ArrayList<Question1> questions = (ArrayList<Question1>) getIntent().getSerializableExtra("questions");
         calculateResult(questions);
     }
-
-//    private void calculateResult(ArrayList<Question1> questions) {
-//        int correctAnswers = 0;
-//        int totalQuestions = 0;
-//        int incorrectAnswers = 0;
-//
-//
-//        for (Question1 question : questions) {
-//            if (question.getCorrectOption().equals(question.getSelectedAnswer())) {
-//                correctAnswers++;
-//            }else
-//                incorrectAnswers++;
-//            totalQuestions++;
-//        }
-//        double percdntage= (correctAnswers * 100f / totalQuestions);
-//        String resultSummary = "Total Questions: " + totalQuestions +
-//                "\nCorrect Answers: " + correctAnswers +
-//                "\nIncorrect Answers: " + incorrectAnswers +
-//                "\nScore: " + percdntage + "%";
-//
-//        resultSummaryTextView.setText(resultSummary);
-//
-//        // Save score to Firebase
-//        saveScoreToFirebase(percdntage);
-//    }
+    @Override
+    public void onBackPressed() {
+        // Prevent going back to the previous activity
+        Intent intent = new Intent(ResultActivity.this, UserActivity.class);
+        startActivity(intent);
+    }
 private void calculateResult(ArrayList<Question1> questions) {
     int correctAnswers = 0;
     int answeredQuestions = 0;
@@ -92,18 +78,34 @@ private void calculateResult(ArrayList<Question1> questions) {
     displayQuestionsWithAnswers(questions);
 }
 
-//    private void saveScoreToFirebase(double performance) {
-//        DatabaseReference leaderboardRef = FirebaseDatabase.getInstance().getReference("Leaderboard");
-//        String userId = "student_" + System.currentTimeMillis(); // Replace with actual student ID or username
-//        leaderboardRef.child(userId).setValue(new LeaderboardEntry(performance));
-//    }
 private void saveScoreToFirebase(double performance) {
     String subject = getIntent().getStringExtra("subject"); // Get the subject name
     DatabaseReference leaderboardRef = FirebaseDatabase.getInstance().getReference("Leaderboard").child(subject);
-    String safeKey = user.getEmail().replace(".", "_").replace("@", "_");
+    String email = user.getEmail();
+    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Users");
+    databaseReference.orderByChild("email").equalTo(email).addListenerForSingleValueEvent(new ValueEventListener() {
+        @Override
+        public void onDataChange(DataSnapshot dataSnapshot) {
+            if (dataSnapshot.exists()) {
+                for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
+                    nameOfUser = userSnapshot.child("name").getValue(String.class);
+                    //  Toast.makeText(Dashboard.this, "Name: " + nameOfUser, Toast.LENGTH_SHORT).show();
+                    leaderboardRef.child(nameOfUser).setValue(performance);
+                }
+            } else {
+                Toast.makeText(ResultActivity.this, "User not found.", Toast.LENGTH_SHORT).show();
+            }
+        }
+
+        @Override
+        public void onCancelled(DatabaseError databaseError) {
+            Toast.makeText(ResultActivity.this, "Error: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+    });
+   // String safeKey = user.getEmail().replace(".", "_").replace("@", "_");
    // String userId = "student_" + System.currentTimeMillis();
     // Use user's email as a unique key
-    leaderboardRef.child(safeKey).setValue(performance);
+
 }
 
     private void displayQuestionsWithAnswers(ArrayList<Question1> questions) {

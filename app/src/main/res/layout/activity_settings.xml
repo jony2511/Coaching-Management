@@ -8,21 +8,39 @@
     android:orientation="vertical"
     tools:context=".Settings">
 
-   <TextView
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content"
-       android:text="What do you want?"
-       android:textSize="25sp"
-       android:layout_margin="10dp"
-       android:textColor="@color/lavender"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="What do you want?"
+        android:textColor="@color/lavender"
+        android:textSize="25sp" />
+
     <Button
         android:id="@+id/adminLogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Login As Admin"
-        android:backgroundTint="#0b92eb"
+        android:layout_margin="20dp"
         android:background="@drawable/button_bg"
-        android:layout_margin="20dp"/>
+        android:backgroundTint="#0b92eb"
+        android:text="Login As Admin" />
+
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:orientation="vertical"-->
+<!--        android:gravity="bottom">-->
+
+<!--        <com.google.android.material.bottomnavigation.BottomNavigationView-->
+<!--            android:id="@+id/bottomNavigationViewsett"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginEnd="20dp"-->
+<!--            android:background="@android:color/transparent"-->
+<!--            app:labelVisibilityMode="labeled"-->
+<!--            app:menu="@menu/bottom_menu" />-->
+
+<!--    </LinearLayout>-->
 
 
 </LinearLayout>

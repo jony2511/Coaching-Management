@@ -13,6 +13,12 @@
         android:theme="@style/Theme.AppCompat.Light.DarkActionBar"
         tools:targetApi="31">
         <activity
+            android:name=".AdminRoutineActivity"
+            android:exported="false" />
+        <activity
+            android:name=".RoutineActivity"
+            android:exported="false" />
+        <activity
             android:name=".CheckAdmin"
             android:exported="false" />
         <activity
@@ -39,7 +45,6 @@
         <activity
             android:name=".AdminActivity"
             android:exported="false" />
-
         <activity
             android:name=".Dashboard"
             android:exported="false"
