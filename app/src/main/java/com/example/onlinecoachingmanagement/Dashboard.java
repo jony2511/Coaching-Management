@@ -63,7 +63,6 @@ public class Dashboard extends AppCompatActivity {
                     for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
                          nameOfUser = userSnapshot.child("name").getValue(String.class);
                       //  Toast.makeText(Dashboard.this, "Name: " + nameOfUser, Toast.LENGTH_SHORT).show();
-                        // Use the name as needed
                         textView.setText("HI \n" +nameOfUser+",");
                     }
                 } else {
@@ -106,6 +105,8 @@ public class Dashboard extends AppCompatActivity {
 
                 } else if (item.getItemId() == R.id.nav_settings) {
                     Toast.makeText(Dashboard.this, "Settings is Clicked", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(Dashboard.this, Settings.class);
+                    startActivity(intent);
 
                 } else if (item.getItemId() == R.id.nav_share) {
                     Toast.makeText(Dashboard.this, "Share is Clicked", Toast.LENGTH_SHORT).show();

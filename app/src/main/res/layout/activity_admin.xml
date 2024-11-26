@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:layout_margin="30dp"
+    tools:context=".AdminActivity">
+
+    <EditText
+        android:id="@+id/subjectNameField"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:hint="Enter Subject Name"
+        />
+
+    <Button
+        android:id="@+id/addSubjectButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Add Subject"
+      />
+
+    <Button
+
+        android:id="@+id/addQuestionSetButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Add Question Set" />
+</LinearLayout>
