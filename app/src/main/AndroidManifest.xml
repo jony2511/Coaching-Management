@@ -13,6 +13,21 @@
         android:theme="@style/Theme.AppCompat.Light.DarkActionBar"
         tools:targetApi="31">
         <activity
+            android:name=".AskAI"
+            android:exported="false" />
+        <activity
+            android:name=".CheckDoubt"
+            android:exported="false" />
+        <activity
+            android:name=".ShowDoubts"
+            android:exported="false" />
+        <activity
+            android:name=".DoubtListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AddDoubtActivity"
+            android:exported="false" />
+        <activity
             android:name=".AdminRoutineActivity"
             android:exported="false" />
         <activity

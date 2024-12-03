@@ -13,8 +13,6 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <!--            STARTS here-->
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -24,15 +22,12 @@
             android:padding="5dp"
             android:weightSum="2">
 
-
             <LinearLayout
                 android:layout_width="350dp"
                 android:layout_height="150dp"
                 android:clipToPadding="false"
                 android:gravity="center"
                 android:orientation="horizontal">
-
-
                 <androidx.cardview.widget.CardView
                     android:id="@+id/exmas"
                     android:layout_width="0dp"
@@ -56,23 +51,19 @@
                             android:layout_height="90dp"
                             android:padding="10dp"
                             android:src="@drawable/exam1"
-
                             />
-
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text="Exams"
                             android:textStyle="bold" />
-
-
                     </LinearLayout>
 
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
-                    android:id="@+id/notes"
+                    android:id="@+id/materials"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
@@ -82,37 +73,27 @@
                     android:foreground="?android:attr/selectableItemBackground"
                     app:cardCornerRadius="30dp"
                     app:cardElevation="20dp">
-
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="130dp"
                         android:gravity="center|center_vertical"
                         android:orientation="vertical">
-
                         <ImageView
                             android:layout_width="100dp"
                             android:layout_height="90dp"
                             android:padding="10dp"
                             android:src="@drawable/notes"
                             />
-
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center"
-                            android:text="Notes"
+                            android:text="Class Materials"
                             android:textStyle="bold" />
-
-
                     </LinearLayout>
 
-
                 </androidx.cardview.widget.CardView>
-
-
             </LinearLayout>
-
-
 
             <LinearLayout
                 android:layout_width="350dp"
@@ -120,7 +101,6 @@
                 android:clipToPadding="false"
                 android:gravity="center"
                 android:orientation="horizontal">
-
                 <androidx.cardview.widget.CardView
                     android:id="@+id/routine"
                     android:layout_width="0dp"
@@ -132,31 +112,24 @@
                     app:cardCornerRadius="30dp"
                     app:cardElevation="20dp"
                     android:foreground="?android:attr/selectableItemBackground">
-
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="130dp"
                         android:gravity="center|center_vertical"
                         android:orientation="vertical">
-
                         <ImageView
                             android:layout_width="70dp"
                             android:layout_height="70dp"
                             android:background="@drawable/routine"
                             android:padding="10dp"
-
                             />
-
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text="Routine"
                             android:textStyle="bold" />
-
-
                     </LinearLayout>
-
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
@@ -182,9 +155,7 @@
                             android:layout_height="90dp"
                             android:padding="10dp"
                             android:src="@drawable/qna1"
-
                             />
-
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -192,20 +163,13 @@
                             android:text="QnA Section"
                             android:textStyle="bold" />
 
-
                     </LinearLayout>
 
-
                 </androidx.cardview.widget.CardView>
-
 
             </LinearLayout>
 
         </LinearLayout>
-
-
-        <!--            ENDS HERE-->
-
 
     </LinearLayout>
 

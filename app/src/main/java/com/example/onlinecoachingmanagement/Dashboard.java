@@ -171,30 +171,24 @@ public class Dashboard extends AppCompatActivity {
         videoLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 dialog.dismiss();
                 Toast.makeText(Dashboard.this, "Upload a Video is clicked", Toast.LENGTH_SHORT).show();
-
             }
         });
 
         shortsLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 dialog.dismiss();
                 Toast.makeText(Dashboard.this, "Create a short is Clicked", Toast.LENGTH_SHORT).show();
-
             }
         });
 
         liveLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 dialog.dismiss();
                 Toast.makeText(Dashboard.this, "Go live is Clicked", Toast.LENGTH_SHORT).show();
-
             }
         });
 
