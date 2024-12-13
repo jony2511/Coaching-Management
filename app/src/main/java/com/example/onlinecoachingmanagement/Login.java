@@ -2,6 +2,7 @@ package com.example.onlinecoachingmanagement;
 
 import static androidx.core.content.ContextCompat.startActivity;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -85,5 +86,20 @@ public class Login extends AppCompatActivity {
                startActivity(intent);
            }
        });
+    }
+    @Override
+    public void onBackPressed() {
+        // super.onBackPressed();
+        new AlertDialog.Builder(Login.this)
+                .setIcon(R.drawable.exit_icon)
+                .setTitle("Exit!")
+                .setMessage("Do you want to close app?")
+                .setPositiveButton("Yes", (dialog, which) -> moveTaskToBack(true))
+                .setNegativeButton("No", (dialog, which) -> {
+                    // Dismiss the dialog
+                    dialog.dismiss();
+                })
+                .show();
+
     }
 }

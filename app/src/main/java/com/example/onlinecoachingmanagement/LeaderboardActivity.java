@@ -1,10 +1,16 @@
 package com.example.onlinecoachingmanagement;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,6 +28,7 @@ public class LeaderboardActivity extends AppCompatActivity {
     private ListView subjectListView;
     private DatabaseReference leaderboardRef;
     private ArrayList<String> subjects;
+    private CustomAdapter2 adapter2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,8 +49,10 @@ public class LeaderboardActivity extends AppCompatActivity {
                 }
 
                 // Populate ListView
-                ArrayAdapter<String> adapter = new ArrayAdapter<>(LeaderboardActivity.this, android.R.layout.simple_list_item_1, subjects);
-                subjectListView.setAdapter(adapter);
+              //  ArrayAdapter<String> adapter = new ArrayAdapter<>(LeaderboardActivity.this, android.R.layout.simple_list_item_1, subjects);
+                //subjectListView.setAdapter(adapter);
+                adapter2 = new CustomAdapter2(subjects, LeaderboardActivity.this);
+                subjectListView.setAdapter(adapter2);
             }
 
             @Override
@@ -61,4 +70,41 @@ public class LeaderboardActivity extends AppCompatActivity {
             startActivity(intent);
         });
     }
+}
+class CustomAdapter2 extends BaseAdapter {
+private final ArrayList<String> names;
+private final Context context;
+private LayoutInflater inflater;
+
+CustomAdapter2(ArrayList<String> names, Context context) {
+    this.names = names;
+    this.context = context;
+}
+
+@Override
+public int getCount() {
+    return names.size();
+}
+
+@Override
+public Object getItem(int position) {
+    return names.get(position);
+}
+
+@Override
+public long getItemId(int position) {
+    return position;
+}
+
+@Override
+public View getView(int position, View convertView, ViewGroup parent) {
+    if (convertView == null) {
+        inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        convertView = inflater.inflate(R.layout.simple_layout1, parent, false);
+    }
+    TextView textView = convertView.findViewById(R.id.textId);
+    textView.setText(names.get(position));
+
+    return convertView;
+}
 }

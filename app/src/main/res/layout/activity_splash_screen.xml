@@ -6,9 +6,9 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="bottom|center"
-    android:weightSum="4"
-    android:background="@drawable/splash"
+    android:gravity="center|bottom"
+    android:weightSum="3"
+    android:background="@drawable/coaching_management"
     tools:context=".SplashScreen">
 
     <ProgressBar

@@ -16,13 +16,14 @@
     <item
         android:title=""/>
 
-    <item
-        android:id="@+id/dictionary"
-        android:title="Dictionary"
-        android:icon="@drawable/subscription" />
+
     <item
         android:id="@+id/library"
         android:title="Library"
-        android:icon="@drawable/library" />
+        android:icon="@drawable/library1" />
+    <item
+        android:id="@+id/profile"
+        android:title="Profile"
+        android:icon="@drawable/profile1" />
 
 </menu>

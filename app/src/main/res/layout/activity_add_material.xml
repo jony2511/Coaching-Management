@@ -1,0 +1,28 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <EditText
+        android:id="@+id/et_material_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter Material Title"
+        android:layout_margin="16dp" />
+
+    <EditText
+        android:id="@+id/et_material_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter Material Content"
+        android:layout_below="@id/et_material_title"
+        android:layout_margin="16dp" />
+
+    <Button
+        android:id="@+id/btn_add_material"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add Material"
+        android:layout_below="@id/et_material_content"
+        android:layout_margin="16dp" />
+
+</RelativeLayout>

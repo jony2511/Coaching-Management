@@ -2,6 +2,7 @@ package com.example.onlinecoachingmanagement;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -46,9 +47,11 @@ public class ResultActivity extends AppCompatActivity {
     }
     @Override
     public void onBackPressed() {
+      //  super.onBackPressed();
         // Prevent going back to the previous activity
         Intent intent = new Intent(ResultActivity.this, UserActivity.class);
         startActivity(intent);
+        finish();
     }
 private void calculateResult(ArrayList<Question1> questions) {
     int correctAnswers = 0;
@@ -115,18 +118,36 @@ private void saveScoreToFirebase(double performance) {
             // Display question
             TextView questionTextView = new TextView(this);
             questionTextView.setText((i + 1) + ". " + question.getQuestionText());
+            questionTextView.setTextSize(20);
+            questionTextView.setTextColor(getResources().getColor(R.color.black));
             questionContainer.addView(questionTextView);
 
             // Display selected answer
             TextView selectedAnswerTextView = new TextView(this);
             String selectedAnswer = (question.getSelectedAnswer() == null || question.getSelectedAnswer().isEmpty()) ?
                     "Not Answered" : question.getSelectedAnswer();
-            selectedAnswerTextView.setText("Your Answer: " + selectedAnswer);
+            if(selectedAnswer.equals("Not Answered")){
+                selectedAnswerTextView.setText("Your Answer: " + selectedAnswer);
+            }else if(selectedAnswer.equals(question.getCorrectOption())){
+                selectedAnswerTextView.setTextColor(getResources().getColor(R.color.green));
+                selectedAnswerTextView.setText("Your Answer: " + selectedAnswer);
+            }else{
+                selectedAnswerTextView.setTextColor(getResources().getColor(R.color.red));
+                selectedAnswerTextView.setText("Your Answer: " + selectedAnswer);
+            }
+
+            selectedAnswerTextView.setTextSize(18);
             questionContainer.addView(selectedAnswerTextView);
 
             // Display correct answer
             TextView correctAnswerTextView = new TextView(this);
             correctAnswerTextView.setText("Correct Answer: " + question.getCorrectOption());
+            correctAnswerTextView.setTextSize(18);
+            correctAnswerTextView.setTextColor(getResources().getColor(R.color.green));
+            LinearLayout.LayoutParams optionsLayoutParams = new LinearLayout.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            optionsLayoutParams.setMargins(0, 0, 0, 32); // Left, Top, Right, Bottom
+            correctAnswerTextView.setLayoutParams(optionsLayoutParams);
             questionContainer.addView(correctAnswerTextView);
         }
     }

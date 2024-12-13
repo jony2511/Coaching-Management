@@ -1,5 +1,6 @@
 package com.example.onlinecoachingmanagement;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
@@ -52,18 +53,18 @@ public class Dashboard extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_dashboard);
 
-        textView=findViewById(R.id.welcomeId);
+        textView = findViewById(R.id.welcomeId);
         user = FirebaseAuth.getInstance().getCurrentUser();
-        String userString=user.getEmail();
+        String userString = user.getEmail();
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Users");
         databaseReference.orderByChild("email").equalTo(userString).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
                     for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
-                         nameOfUser = userSnapshot.child("name").getValue(String.class);
-                      //  Toast.makeText(Dashboard.this, "Name: " + nameOfUser, Toast.LENGTH_SHORT).show();
-                        textView.setText("HI \n" +nameOfUser+",");
+                        nameOfUser = userSnapshot.child("name").getValue(String.class);
+                        //  Toast.makeText(Dashboard.this, "Name: " + nameOfUser, Toast.LENGTH_SHORT).show();
+                        textView.setText("HI \n" + nameOfUser + ",");
                     }
                 } else {
                     Toast.makeText(Dashboard.this, "User not found.", Toast.LENGTH_SHORT).show();
@@ -104,14 +105,14 @@ public class Dashboard extends AppCompatActivity {
                     Toast.makeText(Dashboard.this, "About is Clicked", Toast.LENGTH_SHORT).show();
 
                 } else if (item.getItemId() == R.id.nav_settings) {
-                    Toast.makeText(Dashboard.this, "Settings is Clicked", Toast.LENGTH_SHORT).show();
+                    //  Toast.makeText(Dashboard.this, "Settings is Clicked", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(Dashboard.this, Settings.class);
                     startActivity(intent);
 
                 } else if (item.getItemId() == R.id.nav_share) {
                     Toast.makeText(Dashboard.this, "Share is Clicked", Toast.LENGTH_SHORT).show();
 
-                } else {
+                }  else {
                     FirebaseAuth.getInstance().signOut();
                     startActivity(new Intent(Dashboard.this, MainActivity.class));
                     Toast.makeText(Dashboard.this, "Logout  Successful", Toast.LENGTH_SHORT).show();
@@ -130,7 +131,7 @@ public class Dashboard extends AppCompatActivity {
                 replaceFragment(new HomeFragment());
             } else if (item.getItemId() == R.id.calculator) {
                 replaceFragment(new CalculatorFragment());
-            } else if (item.getItemId() == R.id.dictionary) {
+            } else if (item.getItemId() == R.id.profile) {
                 replaceFragment(new SubsFragment());
             } else if (item.getItemId() == R.id.library) {
                 replaceFragment(new LibraryFragment());
@@ -163,32 +164,38 @@ public class Dashboard extends AppCompatActivity {
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.bottom_sheet_layout);
 
-        LinearLayout videoLayout = dialog.findViewById(R.id.layoutVideo);
-        LinearLayout shortsLayout = dialog.findViewById(R.id.layoutShorts);
-        LinearLayout liveLayout = dialog.findViewById(R.id.layoutLive);
+        LinearLayout createNote = dialog.findViewById(R.id.btnCreateNote);
+        LinearLayout showNote = dialog.findViewById(R.id.btnShowNotes);
+        LinearLayout shareNote = dialog.findViewById(R.id.btnShareNote);
         ImageView cancelButton = dialog.findViewById(R.id.cancelButton);
 
-        videoLayout.setOnClickListener(new View.OnClickListener() {
+        createNote.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
-                Toast.makeText(Dashboard.this, "Upload a Video is clicked", Toast.LENGTH_SHORT).show();
+              //  Toast.makeText(Dashboard.this, "Create a note is clicked", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(Dashboard.this, CreateNoteActivity.class);
+                startActivity(intent);
             }
         });
 
-        shortsLayout.setOnClickListener(new View.OnClickListener() {
+        showNote.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
-                Toast.makeText(Dashboard.this, "Create a short is Clicked", Toast.LENGTH_SHORT).show();
+               // Toast.makeText(Dashboard.this, "Show note is Clicked", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(Dashboard.this, ListNotesActivity.class);
+                startActivity(intent);
             }
         });
 
-        liveLayout.setOnClickListener(new View.OnClickListener() {
+        shareNote.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
-                Toast.makeText(Dashboard.this, "Go live is Clicked", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Dashboard.this, "Please Select a note", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(Dashboard.this, ShareNoteActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -204,6 +211,21 @@ public class Dashboard extends AppCompatActivity {
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
         dialog.getWindow().setGravity(Gravity.BOTTOM);
+
+    }
+    @Override
+    public void onBackPressed() {
+       // super.onBackPressed();
+        new AlertDialog.Builder(Dashboard.this)
+                .setIcon(R.drawable.exit_icon)
+                .setTitle("Exit!")
+                .setMessage("Do you want to close app?")
+                .setPositiveButton("Yes", (dialog, which) -> moveTaskToBack(true))
+                .setNegativeButton("No", (dialog, which) -> {
+                    // Dismiss the dialog
+                    dialog.dismiss();
+                })
+                .show();
 
     }
 }

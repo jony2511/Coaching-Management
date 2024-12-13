@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <EditText
+        android:id="@+id/etUpdateContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Update Note Content"
+        android:gravity="top"
+        android:minHeight="200dp" />
+
+    <Button
+        android:id="@+id/btnUpdateNote"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Update Note" />
+    <Button
+        android:id="@+id/btnDeleteNote"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Delete Note"
+        android:textColor="#FFFFFF"
+        android:background="@color/red" />
+
+</LinearLayout>

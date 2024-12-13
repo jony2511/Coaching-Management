@@ -41,7 +41,7 @@
 
 
     <LinearLayout
-        android:id="@+id/layoutVideo"
+        android:id="@+id/btnCreateNote"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -49,14 +49,14 @@
         android:padding="10dp">
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/baseline_cloud_upload_24"/>
+            android:layout_width="33dp"
+            android:layout_height="29dp"
+            android:src="@drawable/create_note" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Upload a video"
+            android:text="Create a note"
             android:textColor="@color/lavender"
             android:layout_marginLeft="30dp"
             android:textSize="16sp"/>
@@ -64,30 +64,30 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/layoutShorts"
+        android:id="@+id/btnShowNotes"
         android:layout_width="264dp"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:orientation="horizontal"
         android:padding="10dp">
 
 
         <ImageView
-            android:layout_width="25dp"
-            android:layout_height="28dp"
-            android:src="@drawable/whatshot" />
+            android:layout_width="33dp"
+            android:layout_height="27dp"
+            android:src="@drawable/show_note" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"
-            android:text="Create a short"
+            android:text="Show previous notes"
             android:textColor="@color/lavender"
             android:textSize="16sp" />
 
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/layoutLive"
+        android:id="@+id/btnShareNote"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -98,14 +98,14 @@
 
 
         <ImageView
-            android:layout_width="25dp"
-            android:layout_height="41dp"
-            android:src="@drawable/go_live" />
+            android:layout_width="38dp"
+            android:layout_height="36dp"
+            android:src="@drawable/note_share" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Go live"
+            android:text="Share a note"
             android:textColor="@color/lavender"
             android:layout_marginLeft="30dp"
             android:textSize="16sp"/>

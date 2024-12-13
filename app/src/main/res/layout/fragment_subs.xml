@@ -12,6 +12,6 @@
         android:gravity="center"
         android:textSize="30sp"
         android:textColor="@color/lavender"
-        android:text="Subscription" />
+        android:text="Profile" />
 
 </FrameLayout>

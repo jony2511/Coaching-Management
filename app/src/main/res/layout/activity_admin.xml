@@ -41,5 +41,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Solve Doubt" />
+    <Button
+
+        android:id="@+id/addMaterials"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Add Materials" />
 
 </LinearLayout>

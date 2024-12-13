@@ -10,8 +10,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
+        android:layout_gravity="center"
         android:text="Timer: 00:00"
-        android:textSize="18sp"
+        android:textSize="25sp"
         android:textStyle="bold"
         android:textColor="@color/black" />
 
@@ -22,10 +23,12 @@
         android:layout_weight="1">
 
         <LinearLayout
+            android:backgroundTint="#D5FAD7"
             android:id="@+id/questionContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            android:layout_marginBottom="10dp"
             android:padding="10dp" />
     </ScrollView>
 
@@ -34,7 +37,10 @@
         android:id="@+id/submitButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/button_bg"
+        android:textStyle="bold"
         android:text="Submit"
+        android:textSize="18sp"
         android:layout_margin="10dp"
-        android:textColor="@android:color/black" />
+         />
 </LinearLayout>

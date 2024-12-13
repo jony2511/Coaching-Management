@@ -3,4 +3,5 @@
     android:layout_height="match_parent"
     android:divider="@color/black"
     android:dividerHeight="1dp"
+    android:background="@drawable/leaderboard_bg"
     xmlns:android="http://schemas.android.com/apk/res/android" />

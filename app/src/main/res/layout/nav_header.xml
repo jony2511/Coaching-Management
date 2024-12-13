@@ -11,9 +11,9 @@
 
     <ImageView
         android:layout_gravity="top"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/aklogo"/>
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/app_logo2"/>
 
 <!--    <TextView-->
 <!--        android:id="@+id/nev_header_text"-->
