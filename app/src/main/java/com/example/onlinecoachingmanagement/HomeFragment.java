@@ -77,6 +77,7 @@ public class HomeFragment extends Fragment {
         addClickAnimationAndNavigation(qna, CheckDoubt.class);
         addClickAnimationAndNavigation(material, ShowMaterials.class);
         addClickAnimationAndNavigation(leaderboard, LeaderboardActivity.class);
+        addClickAnimationAndNavigation(branches, BranchesActivity.class);
 
         return view;
     }

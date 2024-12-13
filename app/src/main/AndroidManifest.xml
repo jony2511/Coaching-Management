@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -12,6 +14,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.DarkActionBar"
         tools:targetApi="31">
+        <activity
+            android:name=".BranchDetailsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".BranchesActivity"
+            android:exported="false" />
         <activity
             android:name=".ShareNoteActivity"
             android:exported="false" />
@@ -29,9 +37,6 @@
             android:exported="false" />
         <activity
             android:name=".AddMaterialActivity"
-            android:exported="false" />
-        <activity
-            android:name=".AddDailyQuestion"
             android:exported="false" />
         <activity
             android:name=".AskAI"
