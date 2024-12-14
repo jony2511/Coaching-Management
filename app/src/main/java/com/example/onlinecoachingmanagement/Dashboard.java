@@ -53,29 +53,8 @@ public class Dashboard extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_dashboard);
 
-        textView = findViewById(R.id.welcomeId);
+      //  textView = findViewById(R.id.welcomeId);
         user = FirebaseAuth.getInstance().getCurrentUser();
-        String userString = user.getEmail();
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Users");
-        databaseReference.orderByChild("email").equalTo(userString).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
-                    for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
-                        nameOfUser = userSnapshot.child("name").getValue(String.class);
-                        //  Toast.makeText(Dashboard.this, "Name: " + nameOfUser, Toast.LENGTH_SHORT).show();
-                        textView.setText("HI \n" + nameOfUser + ",");
-                    }
-                } else {
-                    Toast.makeText(Dashboard.this, "User not found.", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Toast.makeText(Dashboard.this, "Error: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
 
 
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
@@ -132,7 +111,7 @@ public class Dashboard extends AppCompatActivity {
             } else if (item.getItemId() == R.id.calculator) {
                 replaceFragment(new CalculatorFragment());
             } else if (item.getItemId() == R.id.profile) {
-                replaceFragment(new SubsFragment());
+                replaceFragment(new ProfileFragment());
             } else if (item.getItemId() == R.id.library) {
                 replaceFragment(new LibraryFragment());
             } else {

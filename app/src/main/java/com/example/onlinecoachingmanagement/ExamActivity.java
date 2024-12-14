@@ -96,6 +96,7 @@ public class ExamActivity extends AppCompatActivity {
             public void onFinish() {
                 timerTextView.setText("00:00:00");
                 submitExam();
+                finish();
             }
         }.start();
     }

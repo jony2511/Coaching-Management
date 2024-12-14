@@ -68,11 +68,9 @@ public class BranchesActivity extends AppCompatActivity {
                 null,
                 response -> {
                     try {
-                        // Access the "data" object first
                         JSONObject dataObject = response.getJSONObject("data");
                         JSONArray branchesArray = dataObject.getJSONArray("branches");
 
-                        // Parse each branch
                         for (int i = 0; i < branchesArray.length(); i++) {
                             JSONObject branchObject = branchesArray.getJSONObject(i);
 
@@ -84,7 +82,6 @@ public class BranchesActivity extends AppCompatActivity {
                             branches.add(branch);
                         }
 
-                        // Notify adapter of data change
                         adapter.notifyDataSetChanged();
                     } catch (JSONException e) {
                         Toast.makeText(BranchesActivity.this, "Error parsing JSON", Toast.LENGTH_SHORT).show();

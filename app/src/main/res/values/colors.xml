@@ -17,4 +17,9 @@
     <color name="black_shade_2">#272B33</color>
     <color name="black_shade_3">#22252D</color>
     <color name="yellow">#ffa500</color>
+
+    <!-- Add these colors -->
+    <color name="light_purple">#E6E6FA</color> <!-- Light purple background -->
+    <color name="purple">#9C27B0</color> <!-- Purple for stats -->
+
 </resources>
