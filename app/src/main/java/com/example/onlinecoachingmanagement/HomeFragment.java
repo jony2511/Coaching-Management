@@ -33,8 +33,6 @@ import java.util.Arrays;
 import java.util.List;
 
 public class HomeFragment extends Fragment {
-
-
     private CardView exam, routine, qna, material,leaderboard,branches;
     private ViewPager2 imageCarousel;
     private ImageCarouselAdapter carouselAdapter;

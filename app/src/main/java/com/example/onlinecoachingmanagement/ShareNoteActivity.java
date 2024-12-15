@@ -25,6 +25,7 @@ public class ShareNoteActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_share_note);
+        setTitle("List of Notes");
 
         lvNotesForShare = findViewById(R.id.lvNotesForShare);
         noteTitles = new ArrayList<>();

@@ -2,13 +2,16 @@ package com.example.onlinecoachingmanagement;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,10 +48,11 @@ import java.util.List;
 
 public class ProfileFragment extends Fragment {
 
-    PieChart pieChart;
-    BarChart barChart;
+
+    private Button btnDeleteProfile;
+    private FirebaseAuth mAuth;
     String nameOfUser;
-    TextView userName,userEmail,allExam,allExamScore,average;
+    TextView userName,userEmail;
     private ListView listView;
     private Button btnUpdateProfile;
     private DatabaseReference dbReference;
@@ -56,19 +60,36 @@ public class ProfileFragment extends Fragment {
 
     public String emailOfUser="";
     @Override
+    public void onResume() {
+        super.onResume();
+        if (getActivity() != null) {
+            ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Profile");
+        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (getActivity() != null) {
+            ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Coaching Management");
+        }
+    }
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
-         pieChart = view.findViewById(R.id.pieChart);
-         barChart = view.findViewById(R.id.barChart);
+
+
          userName = view.findViewById(R.id.user_name);
          userEmail = view.findViewById(R.id.user_email);
-         allExam = view.findViewById(R.id.all_exams);
-         allExamScore = view.findViewById(R.id.total_points);
-         average = view.findViewById(R.id.average_points);
          listView = view.findViewById(R.id.listViewDetails);
          btnUpdateProfile = view.findViewById(R.id.btnUpdateProfile);
          btnUpdateProfile.setOnClickListener(v -> showUpdateDialog());
+        mAuth = FirebaseAuth.getInstance();
+        //btnDeleteProfile = view.findViewById(R.id.btnDeleteProfile);
+
+      //  btnDeleteProfile.setOnClickListener(v -> showDeleteConfirmationDialog());
+
 
         // Firebase reference to "Details" node
         dbReference = FirebaseDatabase.getInstance().getReference("Details");
@@ -77,7 +98,7 @@ public class ProfileFragment extends Fragment {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         String userString = user.getEmail();
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Users");
-        DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference("Leaderboard");
+
         databaseReference.orderByChild("email").equalTo(userString).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -91,40 +112,10 @@ public class ProfileFragment extends Fragment {
                         userEmail.setText(userString);
                         addUserDetails(nameOfUser, userString);
                         loadUserDetails(userString);
-                        databaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                double totalScore = 0.0;
-                                int subjectCount = 0;
-                                ArrayList<SubjectPerformance> subjectPerformances = new ArrayList<>();
-
-                                for (DataSnapshot subjectSnapshot : snapshot.getChildren()) {
-                                    String subjectName = subjectSnapshot.getKey();
-                                    if (subjectSnapshot.hasChild(nameOfUser)) {
-                                        double score = subjectSnapshot.child(nameOfUser).getValue(Double.class);
-                                        totalScore += score;
-                                        subjectCount++;
-                                        subjectPerformances.add(new SubjectPerformance(subjectName, score));
-                                    }
-                                }
-
-                                double averageScore = subjectCount > 0 ? totalScore / subjectCount : 0.0;
-                                average.setText("Average\n" + String.format("%.2f", averageScore)+"%");
-                                allExamScore.setText("Total Points\n"+String.format("%.2f", totalScore));
-                                allExam.setText("All Exams\n"+subjectCount);
-                                displayPieChart(averageScore);
-                                displayBarChart(subjectPerformances);
-                            }
-
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError error) {
-                                Toast.makeText(view.getContext(), "Error fetching data!", Toast.LENGTH_SHORT).show();
-                            }
-                        });
 
                     }
                 } else {
-                    Toast.makeText(getActivity(), "User not found.", Toast.LENGTH_SHORT).show();
+                   // Toast.makeText(getActivity(), "User not found.", Toast.LENGTH_SHORT).show();
                 }
             }
             @Override
@@ -135,64 +126,54 @@ public class ProfileFragment extends Fragment {
 
         return view;
     }
-    private void displayPieChart(double averagePerformance) {
-        List<PieEntry> entries = new ArrayList<>();
-        entries.add(new PieEntry((float) averagePerformance, "Performance"));
-        entries.add(new PieEntry((float) (100 - averagePerformance), "Remaining"));
+//    private void showDeleteConfirmationDialog() {
+//        new AlertDialog.Builder(getContext())
+//                .setTitle("Delete Profile")
+//                .setMessage("Are you sure you want to delete your profile? This action cannot be undone.")
+//                .setPositiveButton("Yes", (dialog, which) -> deleteUserFromAuth())
+//                .setNegativeButton("No", null)
+//                .show();
+//    }
+    private void deleteProfile() {
+        FirebaseUser currentUser = mAuth.getCurrentUser();
 
-        PieDataSet dataSet = new PieDataSet(entries, "");
-        dataSet.setColors(Color.GREEN, Color.RED);
-
-        dataSet.setValueTextSize(14f);
-        dataSet.setValueTextColor(Color.BLACK);
-
-        PieData data = new PieData(dataSet);
-        data.setValueTextSize(14f);
-        pieChart.setData(data);
-
-        pieChart.getDescription().setEnabled(false); // Disable description
-        pieChart.setUsePercentValues(true); // Show percentage values
-        pieChart.setHoleRadius(40f); // Adjust the hole size
-        pieChart.setTransparentCircleRadius(45f); // Adjust transparency around the hole
-        pieChart.setCenterText("Average"); // Center text
-        pieChart.setCenterTextSize(16f); // Increase center text size
-        pieChart.setCenterTextColor(Color.BLACK);
-
-        pieChart.invalidate(); // Refresh the chart
-    }
-
-    private void displayBarChart(ArrayList<SubjectPerformance> subjectPerformances) {
-        ArrayList<BarEntry> barEntries = new ArrayList<>();
-        ArrayList<String> labels = new ArrayList<>();
-
-        for (int i = 0; i < subjectPerformances.size(); i++) {
-            barEntries.add(new BarEntry(i, (float) subjectPerformances.get(i).getPerformance()));
-            labels.add(subjectPerformances.get(i).getSubjectName());
+        if (currentUser != null) {
+            // Get the user email or UID (you may want to use UID for more consistency)
+            String userId = currentUser.getUid();
+          //  Log.d("ProfileFragment", "User ID: " + userId);
+            // Delete the user's details from the "Details" node in the database
+//            dbReference.child(userId).removeValue().addOnCompleteListener(task -> {
+//                if (task.isSuccessful()) {
+//                    Toast.makeText(getActivity(), "Profile data deleted from database.", Toast.LENGTH_SHORT).show();
+//                   // deleteUserFromAuth();  // Proceed to delete the user from Firebase Auth
+//                } else {
+//                    Toast.makeText(getActivity(), "Error deleting profile data.", Toast.LENGTH_SHORT).show();
+//                }
+//            });
         }
-
-        BarDataSet dataSet = new BarDataSet(barEntries, "Subjects");
-        dataSet.setColors(ColorTemplate.COLORFUL_COLORS);
-
-        dataSet.setValueTextSize(12f);
-        dataSet.setValueTextColor(Color.BLACK);
-
-        BarData barData = new BarData(dataSet);
-        barData.setValueTextSize(15f);
-
-        barChart.setData(barData);
-
-        barChart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(labels));
-        barChart.getXAxis().setGranularity(1f);
-        barChart.getXAxis().setGranularityEnabled(true);
-        barChart.getXAxis().setTextSize(12f); // Increase label text size
-
-        // Additional formatting
-        barChart.getDescription().setEnabled(false);
-        barChart.getLegend().setTextSize(14f);
-        barChart.animateY(1000);
-
-        barChart.invalidate();
     }
+
+    // Method to delete the user from Firebase Authentication
+//    private void deleteUserFromAuth() {
+//        FirebaseUser currentUser = mAuth.getCurrentUser();
+//
+//        if (currentUser != null) {
+//            // Delete the user's account from Firebase Authentication
+//            currentUser.delete().addOnCompleteListener(task -> {
+//                if (task.isSuccessful()) {
+//                    // Inform the user the deletion was successful
+//                    Toast.makeText(getActivity(), "Profile deleted successfully.", Toast.LENGTH_SHORT).show();
+//
+//                    // Optionally, redirect to the login screen or home screen
+//                    Intent intent = new Intent(getActivity(), Login.class);  // or main screen
+//                    startActivity(intent);
+//                    getActivity().finish();
+//                } else {
+//                    Toast.makeText(getActivity(), "Error deleting user account.", Toast.LENGTH_SHORT).show();
+//                }
+//            });
+//        }
+//    }
     private void addUserDetails(String name,String email) {
         DatabaseReference dbReference = FirebaseDatabase.getInstance().getReference("Details");
 
@@ -209,7 +190,7 @@ public class ProfileFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
                     // Email already exists
-                    Toast.makeText(getActivity(), "User found in database!", Toast.LENGTH_SHORT).show();
+
                 } else {
                     // Email does not exist, proceed to add the new user
                     String userId = dbReference.push().getKey();
@@ -217,9 +198,9 @@ public class ProfileFragment extends Fragment {
                         UserDetails user = new UserDetails(email, name, className, address, dob, mobile);
                         dbReference.child(userId).setValue(user).addOnCompleteListener(task -> {
                             if (task.isSuccessful()) {
-                                Toast.makeText(getActivity(), "User details added to to Database!", Toast.LENGTH_SHORT).show();
+                             //   Toast.makeText(getActivity(), "User details added to to Database!", Toast.LENGTH_SHORT).show();
                             } else {
-                                Toast.makeText(getActivity(), "Failed to add user details: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                              //  Toast.makeText(getActivity(), "Failed to add user details: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                             }
                         });
                     }
@@ -247,7 +228,7 @@ public class ProfileFragment extends Fragment {
                             detailItems.add(new DetailItem(R.drawable.ic_mobile, "Mobile", user.mobile));
                             detailItems.add(new DetailItem(R.drawable.ic_email, "Email", user.email));
                             detailItems.add(new DetailItem(R.drawable.ic_address, "Address", user.address));
-                            detailItems.add(new DetailItem(R.drawable.ic_dob, "D.O.B", user.dob));
+                            detailItems.add(new DetailItem(R.drawable.ic_dob, "Date of Birth", user.dob));
                             detailItems.add(new DetailItem(R.drawable.ic_class, "Class", user.className));
                         }
                     }
@@ -256,7 +237,7 @@ public class ProfileFragment extends Fragment {
                     listView.setAdapter(adapter);
 
                 } else {
-                    Toast.makeText(getActivity(), "User details not found!", Toast.LENGTH_SHORT).show();
+                   // Toast.makeText(getActivity(), "User details not found!", Toast.LENGTH_SHORT).show();
                 }
             }
 

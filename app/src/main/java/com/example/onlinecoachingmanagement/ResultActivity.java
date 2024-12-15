@@ -31,6 +31,7 @@ public class ResultActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
+        setTitle("Result");
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
 
@@ -39,6 +40,11 @@ public class ResultActivity extends AppCompatActivity {
         Button leaderboardButton = findViewById(R.id.leaderboardButton);
         leaderboardButton.setOnClickListener(view -> {
             Intent intent = new Intent(ResultActivity.this, LeaderboardActivity.class);
+            startActivity(intent);
+        });
+        Button homeRedirect = findViewById(R.id.home_redirect);
+        homeRedirect.setOnClickListener(view -> {
+            Intent intent = new Intent(ResultActivity.this, Dashboard.class);
             startActivity(intent);
         });
 

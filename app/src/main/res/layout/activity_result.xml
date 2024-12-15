@@ -36,6 +36,15 @@
             android:layout_gravity="center"
             android:background="@drawable/button_bg"
             android:text="View Leaderboard" />
+        <Button
+            android:layout_marginTop="20dp"
+            android:id="@+id/home_redirect"
+            android:layout_width="178dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:backgroundTint="@color/lavender"
+            android:background="@drawable/button_bg"
+            android:text="Back to home" />
     </LinearLayout>
 
 

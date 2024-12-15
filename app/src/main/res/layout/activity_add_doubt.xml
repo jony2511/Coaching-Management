@@ -7,13 +7,15 @@
     android:padding="16dp">
 
     <EditText
+        android:background="@drawable/edittext_bg"
         android:id="@+id/editTextQuestion"
         android:layout_width="match_parent"
-        android:layout_height="84dp"
-        android:background="@drawable/edittext_bg"
+        android:layout_height="wrap_content"
         android:hint="Enter your doubt here"
-        android:textAlignment="center"
-        android:inputType="text" />
+        android:gravity="top"
+        android:minHeight="200dp" />
+
+
 
     <Button
         android:id="@+id/buttonSubmit"

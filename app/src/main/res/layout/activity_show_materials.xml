@@ -4,7 +4,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical"
         android:padding="16dp">
 
@@ -13,6 +13,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Today's Material"
+            android:textColor="@color/blac_shade_1"
+            android:textStyle="bold"
             android:textSize="20sp"
             android:layout_marginBottom="8dp" />
 
@@ -21,6 +23,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textIsSelectable="true"
+            android:backgroundTint="#CACCDF"
+            android:background="@drawable/diologebkg2"
             android:textSize="16sp"
             android:padding="8dp"
             android:text="" />
@@ -31,6 +35,8 @@
             android:layout_height="wrap_content"
             android:text="Previous Materials"
             android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@color/blac_shade_1"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="8dp" />
 
@@ -39,6 +45,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textIsSelectable="true"
+            android:background="@drawable/diologebkg2"
             android:textSize="16sp"
             android:padding="8dp"
             android:text="" />

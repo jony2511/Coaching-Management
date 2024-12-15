@@ -1,8 +1,11 @@
 package com.example.onlinecoachingmanagement;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.Switch;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,8 +20,10 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class Settings extends AppCompatActivity {
 
-    private Button adminButton;
-   // BottomNavigationView bottomNavigationView;
+    private Button adminButton,help_button;
+    private Switch switchNightMode;
+    private SharedPreferences sharedPreferences;
+    private SharedPreferences.Editor editor;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,37 +34,20 @@ public class Settings extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        setTitle("Settings");
 
-        //bottomNavigationView=findViewById(R.id.bottomNavigationViewsett);
         adminButton = findViewById(R.id.adminLogin);
         adminButton.setOnClickListener(v -> {
             Intent intent = new Intent(Settings.this, CheckAdmin.class);
             startActivity(intent);
         });
 
-//        bottomNavigationView.setBackground(null);
-//        bottomNavigationView.setOnItemSelectedListener(item -> {
-//
-//            if (item.getItemId() == R.id.home) {
-//                replaceFragment(new HomeFragment());
-//            } else if (item.getItemId() == R.id.calculator) {
-//                replaceFragment(new CalculatorFragment());
-//            } else if (item.getItemId() == R.id.dictionary) {
-//                replaceFragment(new SubsFragment());
-//            } else if (item.getItemId() == R.id.library) {
-//                replaceFragment(new LibraryFragment());
-//            } else {
-//                return false;
-//            }
-//            return true;
-//
-//        });
-    }
+        help_button = findViewById(R.id.button_help);
+        help_button.setOnClickListener(v -> {
+            Toast.makeText(this,"Contact for any help",Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(Settings.this, ContactUsActivity.class);
+            startActivity(intent);
+        });
 
-//    private void replaceFragment(Fragment fragment) {
-//        FragmentManager fragmentManager = getSupportFragmentManager();
-//        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-//        fragmentTransaction.replace(R.id.fragment_layout, fragment);
-//        fragmentTransaction.commit();
-//    }
+    }
 }

@@ -42,6 +42,7 @@ public class BranchesActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_branches);
+        setTitle("Our Branches");
 
         branchesListView = findViewById(R.id.branchesListView);
         branches = new ArrayList<>();

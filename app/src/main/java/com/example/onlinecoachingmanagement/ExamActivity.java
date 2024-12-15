@@ -29,6 +29,8 @@ public class ExamActivity extends AppCompatActivity {
     private Button submitButton;
     private DatabaseReference databaseReference;
     private ArrayList<Question1> questions;
+    private CountDownTimer countDownTimer;
+
     private String subject;
     private long timeLimit = 0; // Time in milliseconds
 
@@ -56,7 +58,7 @@ public class ExamActivity extends AppCompatActivity {
                     }
                 }
                 int sz=questions.size();
-                // Set time limit (e.g., 1 minute for testing)
+                // Set time limit, 1 minite per mcq
                 timeLimit = sz * 60000; // 1 minute in milliseconds
                 startTimer(timeLimit);
                 displayQuestions();
@@ -81,8 +83,7 @@ public class ExamActivity extends AppCompatActivity {
     }
 
     private void startTimer(long duration) {
-
-        new CountDownTimer(duration, 1000) {
+        countDownTimer = new CountDownTimer(duration, 1000) {
 
             @Override
             public void onTick(long millisUntilFinished) {
@@ -92,11 +93,11 @@ public class ExamActivity extends AppCompatActivity {
                 long sec = (millisUntilFinished / 1000) % 60;
                 timerTextView.setText(f.format(hour) + ":" + f.format(min) + ":" + f.format(sec));
             }
+
             @Override
             public void onFinish() {
                 timerTextView.setText("00:00:00");
                 submitExam();
-                finish();
             }
         }.start();
     }
@@ -164,12 +165,16 @@ public class ExamActivity extends AppCompatActivity {
             });
         }
     }
-
     private void submitExam() {
+        if (countDownTimer != null) {
+            countDownTimer.cancel();
+        }
+
         Intent intent = new Intent(ExamActivity.this, ResultActivity.class);
-        intent.putExtra("questions", questions); // Use Parcelable or Serializable
+        intent.putExtra("questions", questions);
         intent.putExtra("subject", subject);
         startActivity(intent);
-        finish(); // End the activity after submission
+        finish();
     }
+
 }

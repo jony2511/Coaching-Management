@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.MenuItem;
@@ -21,6 +22,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.FileProvider;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -31,11 +33,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+
+import java.io.File;
 
 public class Dashboard extends AppCompatActivity {
 
@@ -44,8 +43,7 @@ public class Dashboard extends AppCompatActivity {
     BottomNavigationView bottomNavigationView;
     NavigationView navigationView;
     FirebaseUser user;
-    TextView textView;
-    String nameOfUser;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,21 +75,29 @@ public class Dashboard extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 if (item.getItemId() == R.id.nav_home) {
-
-                    Toast.makeText(Dashboard.this, "Home is Clicked", Toast.LENGTH_SHORT).show();
+                    replaceFragment(new HomeFragment());
 
                 } else if (item.getItemId() == R.id.nav_about) {
-                    Toast.makeText(Dashboard.this, "About is Clicked", Toast.LENGTH_SHORT).show();
-
+                   // Toast.makeText(Dashboard.this, "About is Clicked", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(Dashboard.this, AboutUs.class);
+                    startActivity(intent);
                 } else if (item.getItemId() == R.id.nav_settings) {
                     //  Toast.makeText(Dashboard.this, "Settings is Clicked", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(Dashboard.this, Settings.class);
                     startActivity(intent);
 
                 } else if (item.getItemId() == R.id.nav_share) {
-                    Toast.makeText(Dashboard.this, "Share is Clicked", Toast.LENGTH_SHORT).show();
-
-                }  else {
+                    Toast.makeText(Dashboard.this, "Sharing App", Toast.LENGTH_SHORT).show();
+                    shareAppLink();
+                } else if (item.getItemId() == R.id.nav_contact) {
+                   // Toast.makeText(Dashboard.this, "Contact Clicked", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(Dashboard.this, ContactUsActivity.class);
+                    startActivity(intent);
+                }else if (item.getItemId() == R.id.nav_rate) {
+                    //Toast.makeText(Dashboard.this, "Rates Clicked", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(Dashboard.this, RateAppActivity.class);
+                    startActivity(intent);
+                } else {
                     FirebaseAuth.getInstance().signOut();
                     startActivity(new Intent(Dashboard.this, MainActivity.class));
                     Toast.makeText(Dashboard.this, "Logout  Successful", Toast.LENGTH_SHORT).show();
@@ -113,7 +119,7 @@ public class Dashboard extends AppCompatActivity {
             } else if (item.getItemId() == R.id.profile) {
                 replaceFragment(new ProfileFragment());
             } else if (item.getItemId() == R.id.library) {
-                replaceFragment(new LibraryFragment());
+                replaceFragment(new AnalyticsFragment());
             } else {
                 return false;
             }
@@ -167,7 +173,6 @@ public class Dashboard extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
         shareNote.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -191,6 +196,17 @@ public class Dashboard extends AppCompatActivity {
         dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
         dialog.getWindow().setGravity(Gravity.BOTTOM);
 
+    }
+    private void shareAppLink() {
+        String link="https://drive.google.com/file/d/1DaFlploEae5wFqQIbRiL6wyECS2lGExJ/view?usp=drive_link";
+        // Create an intent for sharing the link
+        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+        shareIntent.setType("text/plain");
+        shareIntent.putExtra(Intent.EXTRA_SUBJECT, "Check out this app!");
+        shareIntent.putExtra(Intent.EXTRA_TEXT, "Download the app from the link below:\n" + link);
+
+        // Start the sharing activity
+        startActivity(Intent.createChooser(shareIntent, "Share App Using"));
     }
     @Override
     public void onBackPressed() {

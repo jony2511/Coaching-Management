@@ -13,6 +13,7 @@
         android:hint="Enter Note Title" />
 
     <EditText
+        android:background="@drawable/edittext_bg"
         android:id="@+id/etNoteContent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -22,6 +23,7 @@
 
     <Button
         android:id="@+id/btnSaveNote"
+        android:background="@drawable/button_bg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Save Note" />

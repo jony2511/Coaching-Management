@@ -33,6 +33,7 @@ public class ShowDoubts extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_doubts);
+        setTitle("Q&A with Explanation");
 
         recyclerView = findViewById(R.id.studentRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

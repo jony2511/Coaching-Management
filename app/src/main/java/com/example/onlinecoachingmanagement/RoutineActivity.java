@@ -23,6 +23,7 @@ public class RoutineActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_routine);
+        setTitle("Class Routine");
 
         calendarView = findViewById(R.id.calendarView);
         routineTextView = findViewById(R.id.routineTextView);

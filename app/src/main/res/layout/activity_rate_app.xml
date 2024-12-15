@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="@drawable/contact_us_bg1"
+    android:padding="16dp">
+
+    <!-- RatingBar for rating input -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Rate Our App"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="@color/lavender"
+        android:paddingBottom="10dp" />
+
+    <RatingBar
+        android:id="@+id/ratingBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:numStars="5"
+        android:stepSize="0.5" />
+
+    <!-- Submit Button -->
+    <Button
+        android:id="@+id/btnSubmitRating"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_bg"
+        android:text="Submit Rating"
+        android:layout_marginTop="16dp" />
+
+    <!-- Average Rating Display -->
+    <TextView
+        android:id="@+id/tvAverageRating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Average Rating: 0.0"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_marginTop="16dp" />
+
+</LinearLayout>
