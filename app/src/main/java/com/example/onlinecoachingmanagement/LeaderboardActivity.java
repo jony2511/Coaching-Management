@@ -58,7 +58,7 @@ public class LeaderboardActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(DatabaseError error) {
-                Toast.makeText(LeaderboardActivity.this, "Failed to load subjects.", Toast.LENGTH_SHORT).show();
+               // Toast.makeText(LeaderboardActivity.this, "Failed to load subjects.", Toast.LENGTH_SHORT).show();
             }
         });
 

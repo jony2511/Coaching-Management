@@ -36,6 +36,7 @@ public class SubjectLeaderboardActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_subject_leaderboard);
+        setTitle("Leaderboard");
 
         leaderboardListView = findViewById(R.id.leaderboardListView);
         leaderboardEntries = new ArrayList<>();

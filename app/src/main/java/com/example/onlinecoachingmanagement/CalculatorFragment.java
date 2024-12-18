@@ -70,6 +70,8 @@ public class CalculatorFragment extends Fragment {
         bdiv = view.findViewById(R.id.bdiv);
 
 
+
+
         b1.setOnClickListener(v -> tvMain.setText(tvMain.getText().toString() + "1"));
         b2.setOnClickListener(v -> tvMain.setText(tvMain.getText().toString() + "2"));
         b3.setOnClickListener(v -> tvMain.setText(tvMain.getText().toString() + "3"));

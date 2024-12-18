@@ -53,15 +53,12 @@ public class HomeFragment extends Fragment {
         leaderboard=view.findViewById(R.id.leaderboard);
         branches=view.findViewById(R.id.branches);
 
-        // Set up the image carousel
         imageList = Arrays.asList(R.drawable.image1, R.drawable.image2, R.drawable.image3); // Add your drawable resources
         carouselAdapter = new ImageCarouselAdapter(imageList, getContext());
         imageCarousel.setAdapter(carouselAdapter);
 
-        // Auto-scroll images
         setupAutoScroll();
 
-        // Trigger entrance animations
         animateEntrance(exam, 0);
         animateEntrance(material, 200);
         animateEntrance(routine, 400);
@@ -69,7 +66,6 @@ public class HomeFragment extends Fragment {
         animateEntrance(leaderboard, 800);
         animateEntrance(branches, 1000);
 
-        // Add click animations and navigation
         addClickAnimationAndNavigation(exam, UserActivity.class);
         addClickAnimationAndNavigation(routine, RoutineActivity.class);
         addClickAnimationAndNavigation(qna, CheckDoubt.class);
@@ -82,11 +78,9 @@ public class HomeFragment extends Fragment {
 
 
     private void animateEntrance(CardView cardView, int startDelay) {
-        // Slide in animation (translationY) and fade in (alpha)
         ObjectAnimator slideIn = ObjectAnimator.ofFloat(cardView, "translationY", 300f, 0f);
         ObjectAnimator fadeIn = ObjectAnimator.ofFloat(cardView, "alpha", 0f, 1f);
 
-        // Combine animations into an AnimatorSet
         AnimatorSet animatorSet = new AnimatorSet();
         animatorSet.playTogether(slideIn, fadeIn);
         animatorSet.setDuration(500); // Animation duration in milliseconds
@@ -96,7 +90,6 @@ public class HomeFragment extends Fragment {
 
     private void addClickAnimationAndNavigation(CardView cardView, Class<?> targetActivity) {
         cardView.setOnClickListener(v -> {
-            // Scale up and scale down animation
             ObjectAnimator scaleXUp = ObjectAnimator.ofFloat(cardView, "scaleX", 1f, 1.3f);
             ObjectAnimator scaleYUp = ObjectAnimator.ofFloat(cardView, "scaleY", 1f, 1.3f);
             ObjectAnimator scaleXDown = ObjectAnimator.ofFloat(cardView, "scaleX", 1.3f, 1f);
@@ -106,11 +99,10 @@ public class HomeFragment extends Fragment {
             clickAnimatorSet.play(scaleXUp).with(scaleYUp);
             clickAnimatorSet.play(scaleXDown).after(scaleXUp);
             clickAnimatorSet.play(scaleYDown).after(scaleYUp);
-            clickAnimatorSet.setDuration(300); // Animation duration in milliseconds
+            clickAnimatorSet.setDuration(300);
 
             clickAnimatorSet.start();
 
-            // Navigate to the respective activity after animation completes
             clickAnimatorSet.addListener(new android.animation.AnimatorListenerAdapter() {
                 @Override
                 public void onAnimationEnd(android.animation.Animator animation) {
@@ -131,15 +123,12 @@ public class HomeFragment extends Fragment {
                 int nextItem = (currentItem + 1) % imageList.size(); // Loop back to the first image
                 imageCarousel.setCurrentItem(nextItem, true);
 
-                // Schedule the next scroll
-                carouselHandler.postDelayed(this, 5000); // Change image every 3 seconds
+                carouselHandler.postDelayed(this, 5000); // Change image every 5 seconds
             }
         };
 
-        // Start auto-scrolling
         carouselHandler.postDelayed(carouselRunnable, 5000);
 
-        // Stop and resume auto-scrolling when user interacts
         imageCarousel.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageScrollStateChanged(int state) {
